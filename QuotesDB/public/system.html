@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            background: url('https://i.ibb.co/ct1Q1sF/431210636.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .profile-image-container {
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px; /* Added margin to center the container */
+        }
+
+        .profile-image img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center; /* Center align the content inside the container */
+        }
+
+        .gradient-button {
+            background: linear-gradient(to right, #ff8a00, #da1b60);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px; /* Added margin to separate buttons */
+        }
+
+        .gradient-button:hover {
+            background: linear-gradient(to right, #da1b60, #ff8a00);
+        }
+
+        .generated-quote-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-image-container">
+            <div class="profile-image">
+                <img src="https://i.ibb.co/WkvVRDd/433822665.jpg" alt="Profile Image">
+            </div>
+            <h1>Random Quote Generator</h1> <!-- Moved the header below the profile image -->
+            <p>Welcome to OFFICIAL AkhiroBOT Quotes API!, If you're seeking inspiration or just love insightful quotes, you're in the right place. You can press this button below to generate a free quote, or If you wish to generate a command, you click the button below the Get Random Code.</p> <!-- Added welcome message -->
+        </div>
+        <div style="display: flex; justify-content: center;"> <!-- Centered button -->
+            <button class="gradient-button" onclick="getRandomQuote()">Get Random Quote</button>
+        </div>
+        <div class="generated-quote-container" id="generated-quote-container"></div> <!-- Added container for generated quote below the button -->
+        <div style="display: flex; justify-content: center;"> <!-- Centered button -->
+            <button class="gradient-button" onclick="getRandomQuoteFromAPI()">Get Random Quote from API</button>
+        </div>
+    </div>
+
+    <script>
+        function getRandomQuote() {
+            const apiKey = 'AkhiroAPI';
+            fetch(`/randomQuote?key=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    const { quote, author, category } = data.data;
+                    document.getElementById('generated-quote-container').innerHTML = `<p>"${quote}" - ${author} (${category})</p>`;
+                });
+        }
+
+        function getRandomQuoteFromAPI() {
+            window.location.href = 'https://akhiro-quotes-api.onrender.com/api/randomQuote?apiKey=AkhiroAPI';
+        }
+    </script>
+</body>
+</html>
